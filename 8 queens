@@ -1,0 +1,18 @@
+def solve(board, r=0):
+    n=len(board)
+    if r==n:
+        for row in board: print(" ".join(row))
+        print()
+        return True
+    res = False
+    for c in range(n):
+        if all(board[i][c]!='Q' and (r-i)!=abs(c-j)
+               for i in range(r)
+               for j in range(n)
+                 if board[i][j]=='Q'):
+            board[r][c]='Q'
+            res = solve(board,r+1) or res
+            board[r][c]='.'
+    return res
+
+solve([['.' for _ in range(8)] for _ in range(8)])
