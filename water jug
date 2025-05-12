@@ -1,0 +1,13 @@
+def can_measure(a, b, target):
+    if target > max(a, b):
+        return False
+    return target % gcd(a, b) == 0
+def gcd(x, y):
+    while y:
+        x, y = y, x % y
+    return x
+# Example usage
+if __name__ == "__main__":
+    a, b, target = 4, 3, 2
+    result = can_measure(a, b, target)
+    print(f"Possible to measure {target} liters: {result}")
