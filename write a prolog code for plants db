@@ -1,0 +1,12 @@
+% Basic Plant Database
+
+% Facts
+plant(rose, flower, sun).
+plant(tulip, flower, sun).
+plant(cactus, succulent, sun).
+plant(fern, foliage, shade).
+plant(bamboo, grass, sun).
+
+% Rules
+is_flower(X) :- plant(X, flower, _).
+needs_sun(X) :- plant(X, _, sun).
