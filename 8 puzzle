@@ -1,44 +1,25 @@
-class Puzzle:
-    def _init_(self, board):
-        self.board = board
-
-    def _str_(self):
-        return '\n'.join([' '.join(row) for row in self.board])
-
-    def move(self, direction):
-        if direction == 'up':
-            # Move the empty space up
-            pass
-        elif direction == 'down':
-            # Move the empty space down
-            pass
-        elif direction == 'left':
-            # Move the empty space left
-            pass
-        elif direction == 'right':
-            # Move the empty space right
-            pass
-
-    def solve(self):
-        # Solve the puzzle using a search algorithm
-        pass
-
-# Create the initial board configuration
-board = [['1', '2', '3'],
-         ['4', '5', '6'],
-         ['7', '8', ' ']]
-
-# Create a new puzzle instance
-puzzle = Puzzle(board)
-
-# Print the initial board configuration
-print(puzzle)
-
-# Move the empty space up
-puzzle.move('up')
-
-# Print the updated board configuration
-print(puzzle)
-
-# Solve the puzzle
-puzzle.solve()
+from collections import deque
+def bfs(start):
+    goal = (1, 2, 3, 4, 5, 6, 7, 8, 0)
+    queue = deque([(start, start.index(0), 0)])
+    visited = {start}
+    while queue:
+        board, empty, moves = queue.popleft()
+        if board == goal:
+            return moves
+        
+        x, y = divmod(empty, 3)
+        for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < 3 and 0 <= ny < 3:
+                new_empty = nx * 3 + ny
+                new_board = list(board)
+                new_board[empty], new_board[new_empty] = new_board[new_empty], new_board[empty]
+                new_board_tuple = tuple(new_board)
+                if new_board_tuple not in visited:
+                    visited.add(new_board_tuple)
+                    queue.append((new_board_tuple, new_empty, moves + 1))
+    return -1  # No solution
+# Example usage
+initial_board = (1, 2, 3, 4, 5, 6, 0, 7, 8)
+print(bfs(initial_board))
