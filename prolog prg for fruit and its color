@@ -1,17 +1,9 @@
-class FruitColor:
-    def _init_(self):
-        self.fruit_colors = {
-            'apple': 'red',
-            'banana': 'yellow',
-            'grape': 'purple',
-            'orange': 'orange',
-            'lemon': 'yellow'
-        }
+% Facts
+fruit(apple, red).
+fruit(banana, yellow).
+fruit(grape, purple).
+fruit(orange, orange).
+fruit(kiwi, green).
 
-    def find_color(self, fruit):
-        return self.fruit_colors.get(fruit, 'Unknown fruit')
-
-# Example usage
-fc = FruitColor()
-print(fc.find_color('apple'))  # Output: red
-print(fc.find_color('kiwi'))   # Output: Unknown fruit
+% Query: Find fruit and its color
+fruit_color(Fruit, Color) :- fruit(Fruit, Color).
